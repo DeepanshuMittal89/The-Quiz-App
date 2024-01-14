@@ -55,6 +55,7 @@ class QuestionareActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun setQuestion() {
+        defaultOptionView()
         val question: Question = mquestionList!![mcurrentPosition - 1]
         progressBar?.progress = mcurrentPosition
         tvProgress?.text = "$mcurrentPosition/${progressBar?.max}"
@@ -132,8 +133,51 @@ class QuestionareActivity : AppCompatActivity(), View.OnClickListener{
                 }
             }
             R.id.btn_Submit->{
-                TODO("To be impemented ")
+                if(mSelectedOptionPosition== 0){
+                    mcurrentPosition++
+                    when{
+                        mcurrentPosition<=mquestionList!!.size->{
+                            setQuestion()
+                        }
+                    }
+                }
+                else{
+                    val question = mquestionList?.get(mcurrentPosition-1)
+                    if(question!!.answer != mSelectedOptionPosition){
+                        mSelectedOptionPosition?.let { answerView(it,R.drawable.wrong_answer) }
+                    }
+                    answerView(question.answer, R.drawable.correct_answer)
+
+                    if(mcurrentPosition!= mquestionList!!.size){
+                        submitButton?.text="Next Question"
+                    }
+                    else{
+                        submitButton?.text="Result"
+                    }
+                }
+                mSelectedOptionPosition =0
             }
+        }
+    }
+
+    private fun answerView(answer:Int, drawableView: Int){
+        when(answer){
+            1-> btnOne?.background = ContextCompat.getDrawable(
+                this,
+                drawableView
+            )
+            2-> btnTwo?.background = ContextCompat.getDrawable(
+                this,
+                drawableView
+            )
+            3-> btnThree?.background = ContextCompat.getDrawable(
+                this,
+                drawableView
+            )
+            4-> btnFour?.background = ContextCompat.getDrawable(
+                this,
+                drawableView
+            )
         }
     }
 }
