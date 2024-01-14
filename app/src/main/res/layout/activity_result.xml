@@ -29,16 +29,17 @@
             tools:src="@drawable/ic_trophy"
             android:layout_marginTop="-150sp">
         </ImageView>
+
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hey, Congratulations!!!"
-            android:textColor="@color/white"
-            android:textSize="30sp"
+            android:layout_height="37dp"
             android:layout_marginTop="-50sp"
-            android:textAlignment="center">
-        </TextView>
+            android:text="Hey, Congratulations!!!"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="30sp"></TextView>
         <TextView
+            android:id="@+id/tv_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Deepanshu"
@@ -48,6 +49,7 @@
             android:textAlignment="center">
         </TextView>
         <TextView
+            android:id="@+id/score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Your Score is 9 out of 10"
@@ -57,6 +59,7 @@
             android:textAlignment="center">
         </TextView>
         <Button
+            android:id="@+id/submit_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Finish"

@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
             }
             else{
                 intent = Intent(this,QuestionareActivity::class.java)
+                intent.putExtra(Constants.USER_NAME,editableText.text.toString())
                 startActivity(intent)
                 finish()
             }

@@ -1,5 +1,6 @@
 package com.example.quizapp
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.icu.text.Transliterator.Position
@@ -18,6 +19,8 @@ class QuestionareActivity : AppCompatActivity(), View.OnClickListener{
     private var mcurrentPosition:Int=1
     private var mquestionList:ArrayList<Question>?=null
     private var mSelectedOptionPosition:Int?=0
+    private var muser_name:String?=null
+    private var mcorrect_answer:Int= 0
 
     private var progressBar:ProgressBar?=null
     private var tvProgress:TextView?= null
@@ -32,6 +35,7 @@ class QuestionareActivity : AppCompatActivity(), View.OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_questionare)
+        muser_name= intent.getStringExtra(Constants.USER_NAME)
         tvQuestion = findViewById(R.id.tv_Question)
         ivImage = findViewById(R.id.iv_image)
         progressBar = findViewById(R.id.progressBar)
@@ -139,12 +143,23 @@ class QuestionareActivity : AppCompatActivity(), View.OnClickListener{
                         mcurrentPosition<=mquestionList!!.size->{
                             setQuestion()
                         }
+                        else->{
+                            val intent= Intent(this,ResultActivity::class.java)
+                            intent.putExtra(Constants.USER_NAME,muser_name)
+                            intent.putExtra(Constants.CORRECT_ANSWER,mcorrect_answer)
+                            intent.putExtra(Constants.TOTAL_QUESTIONS,mquestionList!!.size)
+                            startActivity(intent)
+                            finish()
+                        }
                     }
                 }
                 else{
                     val question = mquestionList?.get(mcurrentPosition-1)
                     if(question!!.answer != mSelectedOptionPosition){
                         mSelectedOptionPosition?.let { answerView(it,R.drawable.wrong_answer) }
+                    }
+                    else{
+                        mcorrect_answer++
                     }
                     answerView(question.answer, R.drawable.correct_answer)
 
